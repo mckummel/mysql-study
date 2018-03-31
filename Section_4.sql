@@ -48,3 +48,18 @@ VALUES ('Math','K',20),('Eus','K',40),('Maues','K',30);
 SELECT * FROM people;
 
 DROP TABLE people;
+
+-- not null lesson
+
+USE pet_app;
+
+CREATE TABLE cats2
+(
+	name varchar(100) NOT NULL,
+    age int not null
+);
+
+INSERT INTO cats2(name)
+VALUES('Texas'); -- should return an error or warning
+
+SELECT * FROM cats2;
