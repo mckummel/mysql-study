@@ -38,6 +38,15 @@ SELECT * FROM cats WHERE name = 'EgG';
 
 SELECT cat_id AS id, name FROM cats;
 
+-- update
+
 UPDATE cats SET breed='Shorthair' WHERE breed='Tabby';
 
 UPDATE cats SET age=14 WHERE name='Misty';
+
+-- delete
+
+SELECT * FROM cats WHERE name='egg';
+
+DELETE FROM cats WHERE name='egg';
+
