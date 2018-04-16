@@ -30,3 +30,24 @@ SELECT REPLACE('Hello World','o','0');
 SELECT REPLACE(title,'e','&') AS Title FROM books;
 
 SELECT SUBSTRING(REPLACE(title,'e','&'),1,10) AS Title FROM books;
+
+-- reverse
+
+SELECT REVERSE(title) AS 'Reverse Title' FROM books;
+
+-- using concat,replace,substring and reverse
+SELECT REPLACE(CONCAT(SUBSTRING(REVERSE(title),1,10),'...'),'a','@') AS 'Reverse Title' FROM books;
+
+-- char length
+
+SELECT title,CHAR_LENGTH(title) AS 'Title char length' FROM books;
+
+SELECT CONCAT(title,' is ',CHAR_LENGTH(title),' characters long') AS 'Title char length' FROM books;
+
+-- upper and lower
+
+SELECT UPPER(title) FROM books;
+
+SELECT LOWER(title) FROM books;
+
+SELECT CONCAT(UPPER(SUBSTRING(title,1,10)),LOWER(SUBSTRING(title,11))) FROM books;
