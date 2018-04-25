@@ -62,3 +62,37 @@ INSERT INTO people(name,birthdate,birthtime,birthdatetime)
 VALUES('Test3',curdate(),curtime(),now());
 
 SELECT * FROM people;
+
+-- formatting dates
+
+SELECT name,birthdate FROM people;
+
+SELECT name,day(birthdate) FROM people;
+
+SELECT name,month(birthdate) FROM people;
+
+SELECT name,year(birthdate) FROM people;
+
+SELECT name,day(birthdate),dayofweek(birthdate) FROM people;
+
+SELECT name,day(birthdate),dayofmonth(birthdate) FROM people;
+
+SELECT name,day(birthdate),dayofyear(birthdate) FROM people;
+
+SELECT name,day(birthdatetime),dayofyear(birthdatetime) FROM people;
+
+SELECT name,day(birthdatetime),month(birthdatetime) FROM people;
+
+SELECT name,hour(birthtime),minute(birthtime),second(birthtime) FROM people;
+
+SELECT DATE_FORMAT(now(), '%W %M %Y');
+
+SELECT DATE_FORMAT(now(), '%W-%M-%Y');
+
+SELECT DATE_FORMAT(now(), '%M, %D %Y');
+
+SELECT DATE_FORMAT(birthdate, '%M %D %Y') FROM people;
+
+SELECT DATE_FORMAT(birthdate, '%m/%d/%Y') FROM people;
+
+SELECT DATE_FORMAT(birthdatetime, '%m/%d/%Y at %h:%m') FROM people;
