@@ -96,3 +96,45 @@ SELECT DATE_FORMAT(birthdate, '%M %D %Y') FROM people;
 SELECT DATE_FORMAT(birthdate, '%m/%d/%Y') FROM people;
 
 SELECT DATE_FORMAT(birthdatetime, '%m/%d/%Y at %h:%m') FROM people;
+
+-- date math
+
+SELECT name,birthdate,DATEDIFF(now(),birthdate) FROM people;
+
+SELECT birthdatetime, date_add(birthdatetime, INTERVAL 1 MONTH) FROM people;
+
+SELECT birthdatetime, date_add(birthdatetime, INTERVAL 10 SECOND) FROM people;
+
+SELECT birthdatetime, (birthdatetime+ INTERVAL 1 MONTH) FROM people;
+
+SELECT birthdatetime, (birthdatetime + INTERVAL 1 MONTH + INTERVAL 1 YEAR) FROM people;
+
+-- TIMESTAMPS
+
+CREATE TABLE comments
+(
+	content VARCHAR(100),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+
+INSERT INTO comments(content) VALUES('this is a test');
+
+INSERT INTO comments(content) VALUES('this is another test');
+
+SELECT * FROM comments;
+
+CREATE TABLE comments2
+(
+	content VARCHAR(100),
+    created_at TIMESTAMP DEFAULT NOW(),
+    changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
+);
+
+INSERT INTO comments2(content) VALUES('this is a test');
+
+INSERT INTO comments2(content) VALUES('this is another test');
+
+UPDATE comments2 SET content = 'this was a test' WHERE content ='this is a test';
+
+SELECT * FROM comments2;
