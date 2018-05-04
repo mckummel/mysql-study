@@ -62,3 +62,71 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (10,5,9.9),
     (13,3,8.0),(13,4,7.2),
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
+    
+SELECT * FROM reviews;
+
+
+
+SELECT title, rating 
+FROM series
+JOIN reviews
+	ON series.id = reviews.series_id;
+    
+SELECT title, AVG(rating) AS avg_rating 
+FROM series
+JOIN reviews
+	ON series.id = reviews.series_id
+GROUP BY title
+ORDER BY avg_rating;
+
+SELECT reviewers.first_name, reviewers.last_name, reviews.rating
+FROM reviewers
+JOIN reviews ON reviewers.id = reviews.reviewer_id;
+
+SELECT reviewers.first_name, reviewers.last_name, reviews.rating
+FROM reviewers
+JOIN reviews ON reviewers.id = reviews.reviewer_id;
+
+SELECT title, rating
+FROM series 
+LEFT JOIN reviews
+	ON series.id = reviews.series_id
+WHERE rating IS null -- we can't use rating = null
+ORDER BY rating;
+
+SELECT genre, AVG(rating) AS avg_rating 
+FROM series
+JOIN reviews
+	ON series.id = reviews.series_id
+GROUP BY genre
+ORDER BY genre;
+
+SELECT genre, ROUND(AVG(rating), 2) AS avg_rating 
+FROM series
+JOIN reviews
+	ON series.id = reviews.series_id
+GROUP BY genre
+ORDER BY genre;
+
+SELECT reviewers.first_name, reviewers.last_name, 
+	COUNT(reviews.rating) AS count, 
+    IFNULL(MIN(reviews.rating),0) AS MIN,
+    IFNULL(MAX(reviews.rating),0) AS MAX, 
+    IFNULL(AVG(reviews.rating),0) AS avg,
+    CASE 
+		WHEN COUNT(reviews.rating) >= 10 THEN 'POWER USER'
+		WHEN COUNT(reviews.rating) = 0 THEN 'Inactive'
+		ELSE 'ACTIVE'
+		END AS status
+FROM reviewers
+JOIN reviews ON reviewers.id = reviews.reviewer_id
+GROUP BY reviewers.id;
+
+SELECT series.title, reviews.rating, 
+	   CONCAT(reviewers.first_name, ' ',reviewers.last_name)
+       AS reviewer
+FROM series
+INNER JOIN reviews ON series.id = reviews.series_id
+INNER JOIN reviewers ON reviews.reviewer_id = reviewers.id
+ORDER BY series.title;
+    
