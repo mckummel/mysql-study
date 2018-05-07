@@ -25,14 +25,43 @@ var query2 = 'SELECT CURDATE()';
 var query3 = 'SELECT 1+5';
 var query4 = 'SELECT 1+5 AS answer';
 var query5 = 'SELECT CURTIME() as time, CURDATE() as date, NOW() as now';
+var query6 = 'SELECT * FROM users';
+var query7 = 'SELECT COUNT(*) AS total FROM users';
 
-connection.query(query5, function (error, results, fields) {
-  if (error) throw error;
-  console.log(results[0].time);
-  console.log(results[0].date);
-  console.log(results[0].now);
-});
+//timeQuery();
+for(var i = 0; i< 1000; i++){
+insertRandomUser();
+}
+usersQuery();
+
 connection.end();
+
+function insertRandomUser()
+{
+var person = {email: faker.internet.email()};
+connection.query('INSERT INTO users SET ?',person, function (error, results) {
+    if (error) throw error;
+    //console.log(results);
+    });
+}
+
+function usersQuery()
+{
+    connection.query(query7, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results[0].total);
+    });
+}
+
+function timeQuery()
+{
+    connection.query(query5, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results[0].time);
+    console.log(results[0].date);
+    console.log(results[0].now);
+    });
+}
 
 function generateAddress()
 {
