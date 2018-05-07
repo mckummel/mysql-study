@@ -29,9 +29,8 @@ var query6 = 'SELECT * FROM users';
 var query7 = 'SELECT COUNT(*) AS total FROM users';
 
 //timeQuery();
-for(var i = 0; i< 1000; i++){
 insertRandomUser();
-}
+insertRandomUser2();
 usersQuery();
 
 connection.end();
@@ -43,6 +42,23 @@ connection.query('INSERT INTO users SET ?',person, function (error, results) {
     if (error) throw error;
     //console.log(results);
     });
+}
+
+function insertRandomUser2()
+{
+    var data = [];
+    for(var i = 0; i < 500; i++)
+    {
+        data.push([
+            faker.internet.email(),
+            faker.date.past()
+        ]);
+    }
+
+    connection.query('INSERT INTO users(email,created_at) VALUES ?',[data], function (error, results) {
+        if (error) throw error;
+        //console.log(results);
+        });
 }
 
 function usersQuery()
